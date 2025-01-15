@@ -1,28 +1,17 @@
-🔒 Vulnerability Demonstration: Visibility Modifiers
-License: MIT
-Solidity
-Hardhat
-
-📝 Descripción
+Vulnerability Demonstration: Visibility Modifiers
 Este proyecto demuestra una vulnerabilidad común en smart contracts relacionada con modificadores de visibilidad incorrectos.
 
-🚨 Vulnerabilidad
-La vulnerabilidad existe porque la función _updateBalance en VulnerableBank está marcada como public cuando debería ser internal. Esto permite que cualquier contrato externo pueda modificar los balances directamente.
+Descripción de la Vulnerabilidad
+La vulnerabilidad existe porque la función _updateBalance en VulnerableBank está marcada como public cuando debería ser internal. Esto permite que cualquier contrato externo pueda modificar los balances directamente, evitando las validaciones y controles de seguridad.
 
-🏗️ Estructura del Proyecto
-BASH
+Estructura del Proyecto
 
 ├── contracts/
-│   ├── VulnerableBank.sol    # Contrato vulnerable
-│   └── ExploitBank.sol       # Contrato que explota la vulnerabilidad
+│   ├── VulnerableBank.sol    // Contrato vulnerable
+│   └── ExploitBank.sol       // Contrato que explota la vulnerabilidad
 ├── test/
-│   └── test.js              # Tests que demuestran la vulnerabilidad
-🛠️ Configuración del Entorno
-Clonar el repositorio:
-BASH
-
-git clone https://github.com/tu-usuario/visibility-modifier-vulnerability.git
-cd visibility-modifier-vulnerability
+│   └── test.js              // Tests que demuestran la vulnerabilidad
+Configuración del Entorno
 Instalar dependencias:
 BASH
 
@@ -40,20 +29,20 @@ Para ver trazas detalladas:
 BASH
 
 npx hardhat test --trace
-🔬 Demostración de la Vulnerabilidad
+Demostración de la Vulnerabilidad
 Un usuario deposita ETH en VulnerableBank
 El atacante usa ExploitBank para llamar directamente a _updateBalance
 Los fondos del usuario son manipulados sin autorización
-JAVASCRIPT
+Para ver la demostración, ejecuta:
 
-// Ejemplo de explotación
-await vulnerableBank.connect(user).deposit({ value: ethers.utils.parseEther("1") });
-await exploitBank.connect(attacker).exploit(user.address);
-💥 Impacto
-⚠️ Modificación no autorizada de balances
-💸 Pérdida de fondos de usuarios
-🚫 Bypass de la lógica de negocio
-✅ Solución
+BASH
+
+npx hardhat test
+Impacto
+Modificación no autorizada de balances
+Pérdida de fondos de usuarios
+Bypass de la lógica de negocio
+Solución
 La versión segura del contrato marca la función como internal:
 
 SOLIDITY
@@ -61,26 +50,27 @@ SOLIDITY
 function _updateBalance(address user, uint256 amount) internal {
     balances[user] = amount;
 }
-📚 Mejores Prácticas
+Mejores Prácticas
 Usar internal para funciones internas
 Seguir el principio de mínimo privilegio
 Auditar la visibilidad de todas las funciones
 Implementar controles de acceso adecuados
-⚠️ Notas de Seguridad
-⚠️ Este código es solo para fines educativos. No usar en producción.
+Notas de Seguridad
+Este código es solo para fines educativos. No usar en producción.
 
-📄 Licencia
-Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE.md para más detalles.
+Licencia
+MIT
 
-🤝 Contribuir
-Las contribuciones son bienvenidas. Por favor:
+Contribuir
+Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir los cambios propuestos.
 
-🍴 Fork el proyecto
-🔨 Crea tu Feature Branch
-💾 Commit tus cambios
-📤 Push al Branch
-🔍 Abre un Pull Request
-📚 Referencias
+Referencias
 Solidity Docs - Visibility
 Smart Contract Best Practices
-Built with ❤️ by Tu Usuario
+Para reproducir el problema:
+
+Clona el repositorio
+Instala dependencias
+Ejecuta los tests
+Revisa los resultados
+Para cualquier duda o sugerencia, abre un issue en el repositorio.
